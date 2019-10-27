@@ -1,6 +1,6 @@
 ;;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; fact.lisp --- Trivial implementation of the factorial of n
+;;; error.lisp --- Proper signaling that some values cannot be supported
 ;;;
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
@@ -24,9 +24,7 @@
 
 (in-package #:fibonacci)
 
-(defun fact (n)
-  "Trivial factorial of N."
-  (cond ((< n 0) (error 'mathematically-undefined :message "Only defined for positive numbers."))
-        ((= n 0) 1)
-        ((= n 1) 1)
-        (t (* n (fact (1- n))))))
+(define-condition mathematically-undefined (error)
+  ((num :initarg :num :reader num))
+  (:report (lambda (c s) (format s "Undefined for ~a" (num c))))
+  (:documentation "Some numbers just don't work."))

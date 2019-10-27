@@ -24,6 +24,6 @@
 
 (defpackage :fibonacci
   (:use #:cl)
-  (:export :fib :fastfib :fact))
+  (:export :fib :fastfib :fact :mathematically-undefined))
 
 (in-package :fibonacci)

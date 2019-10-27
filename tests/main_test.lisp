@@ -43,17 +43,19 @@
   (is 1 (fibonacci:fib 2))
   (is 2 (fibonacci:fib 3))
   (is 5 (fibonacci:fib 5))
-  (is 89 (fibonacci:fib 11)))
+  (is 89 (fibonacci:fib 11))
+  (is-error (fibonacci:fib -1) 'fibonacci:mathematically-undefined))
 
 (subtest
-      "Test the fast Fibonacci function."
-      (is 0 (fibonacci:fastfib 0))
-      (is 1 (fibonacci:fastfib 1))
-      (is 1 (fibonacci:fastfib 2))
-      (is 2 (fibonacci:fastfib 3))
-      (is 5 (fibonacci:fastfib 5))
-      (is 89 (fibonacci:fastfib 11))
-      (is 2971215073 (fibonacci:fastfib 47))
-      (is 1779979416004714189 (fibonacci:fastfib 89)))
+    "Test the fast Fibonacci function."
+  (is-error (fibonacci:fastfib -1) 'fibonacci:mathematically-undefined)
+  (is 0 (fibonacci:fastfib 0))
+  (is 1 (fibonacci:fastfib 1))
+  (is 1 (fibonacci:fastfib 2))
+  (is 2 (fibonacci:fastfib 3))
+  (is 5 (fibonacci:fastfib 5))
+  (is 89 (fibonacci:fastfib 11))
+  (is 2971215073 (fibonacci:fastfib 47))
+  (is 1779979416004714189 (fibonacci:fastfib 89)))
 
 (finalize)

@@ -30,13 +30,14 @@
   :version "0.0.0"
   :author "Erwin J. van Eijk"
   :maintainer "Erwin J. van Eijk"
-  :license "BSD sans advertising clause (see file COPYING for details)"
+  :license "MIT"
   :description "Speedy Fibonacci numbers"
   :depends-on(trivial-features)
   :components ((:module source
                 :pathname "src/"
                 :serial t
                 :components ((:file "package")
+                             (:file "error")
                              (:file "fact")
                              (:file "fibonacci")))))
 

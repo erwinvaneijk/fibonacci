@@ -29,22 +29,26 @@
 (defun fib (n)
   "Trivial recursive Fibonacci number implementation of N."
   (cond
+    ((< n 0) (error 'mathematically-undefined :message "Only defined for numbers from N."))
     ((<= n 0) 0)
     ((= n 1) 1)
     (t (+ (fib (- n 1)) (fib (- n 2))))))
 
 (defun fastfib-part (n)
-  "Implement a way of doing the fast doubling."
-  (if (eq n 0)
-      (cons 0 1)
-      (let* ((r (fastfib-part (nth-value 0 (floor n 2))))
+  "Compute the N-th Fibonacci number by implementing the fast doubling method."
+  (cond
+        ((< n 0) (error 'mathematically-undefined :message "Only defined for positive numbers."))
+        ((= n 0) (cons 0 1))
+        (t
+         (let*
+            ((r (fastfib-part (nth-value 0 (floor n 2))))
              (a (car r))
              (b (cdr r))
              (c (* a (- (* b 2) a)))
              (d (+ (* a a) (* b b))))
-           (if (= 0 (mod n 2))
+            (if (= 0 (mod n 2))
                (cons c d)
-               (cons d (+ c d))))))
+               (cons d (+ c d)))))))
 
 (defun fastfib (n)
-  (car (fastfib-part n)))
+    (car (fastfib-part n)))
