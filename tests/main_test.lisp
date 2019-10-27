@@ -29,10 +29,11 @@
 (plan nil)
 
 (subtest
+  ; This test is here as a litmus test for prove.
     "Test the + function"; the description
   (is 0 (+ 0 0))
   (is 4 (+ 2 2))
-  (is 5 (+ 2 2))
+  (is 5 (+ 2 3))
   (is 0 (+ 2 -2)))
 
 (subtest
