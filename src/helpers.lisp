@@ -1,7 +1,9 @@
-;;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; package.lisp --- Contains the package information.
+;;; helpers.lisp
 ;;;
+;;; An implementation of helper routines.
+;;;
+
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,8 +24,14 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(defpackage :fibonacci
-  (:use #:cl)
-  (:export :fib :fastfib :fact :mathematically-undefined :factors :range))
-
 (in-package :fibonacci)
+
+(defun concat-lists (seq1 seq2)
+  "Concatenate lists SEQ1 and SEQ2."
+    (if (null seq1)
+        seq2
+        (cons (car seq1) (concat-lists (cdr seq1) seq2))))
+
+(defun range (max &key (min 0) (step 1))
+  (loop for n from min below max by step
+     collect n))

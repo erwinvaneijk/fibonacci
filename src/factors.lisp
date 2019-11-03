@@ -1,7 +1,10 @@
-;;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; package.lisp --- Contains the package information.
+;;; factors.lisp
 ;;;
+;;; An implementation of the algorithm to factorize a number n into
+;;; its prime components.
+;;;
+
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,8 +25,16 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(defpackage :fibonacci
-  (:use #:cl)
-  (:export :fib :fastfib :fact :mathematically-undefined :factors :range))
-
 (in-package :fibonacci)
+
+(defun factors (n)
+  "Factorize the number N into its prime factors."
+  (concat-lists
+    (loop while (evenp n)
+       do (setf n (/ n 2))
+       collect 2)
+    (loop
+         while (> n 1)
+         for k = 3 then (+ k 2)
+         when (= 0 (mod n k)) collect k
+         when (= 0 (mod n k)) do (setf n (/ n k)))))

@@ -39,6 +39,7 @@
                 :components ((:file "package")
                              (:file "error")
                              (:file "fact")
+                             (:file "factors")
                              (:file "fibonacci")))))
 
 (defmethod perform (o test-op) (c (eql (find-system :fibonacci)))
