@@ -39,9 +39,12 @@
                 :components ((:file "package")
                              (:file "error")
                              (:file "helpers")
-                             (:file "fact")
-                             (:file "factors")
-                             (:file "fibonacci")))))
+                             (:file "fact"
+                                    :depends-on ("error"))
+                             (:file "factors"
+                                    :depends-on ("error"))
+                             (:file "fibonacci"
+                                    :depends-on ("error"))))))
 
 (defmethod perform (o test-op) (c (eql (find-system :fibonacci)))
   (operate 'load-op :fibonacci-tests)
