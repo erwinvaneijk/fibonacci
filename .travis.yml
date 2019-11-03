@@ -2,13 +2,15 @@ language: lisp
 sudo: required
 
 env:
+  global:
+    - PATH=~/.roswell/bin:$PATH
   matrix:
     - LISP=abcl
     - LISP=allegro
-    - LISP=sbcl
+    - LISP=sbcl-bin
     - LISP=sbcl32
-    - LISP=ccl
-    - LISP=ccl32
+    - LISP=ccl-bin
+    - LISP=ccl32-bin
     - LISP=clisp
     - LISP=clisp32
     - LISP=cmucl
@@ -19,8 +21,8 @@ env:
 #     - env: LISP=ecl
 
 install:
-  - curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
+  - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
+  - ros install prove
 
 script:
-  - cl -l prove -e '(or (prove:run :fibonacci-tests)
-             (uiop:quit -1))'
+  - run-prove fibonacci-tests.asd
