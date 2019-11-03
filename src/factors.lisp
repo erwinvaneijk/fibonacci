@@ -35,6 +35,8 @@
        collect 2)
     (loop
          while (> n 1)
-         for k = 3 then (+ k 2)
+         for k = 3 then (if (= 0 (mod n k))
+                            k
+                            (+ 2 k))
          when (= 0 (mod n k)) collect k
          when (= 0 (mod n k)) do (setf n (/ n k)))))

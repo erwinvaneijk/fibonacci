@@ -35,6 +35,10 @@
 (prove:is '(2 2) (factors 4))
 (prove:is '(2 47) (factors (* 2 47)))
 (prove:is '(2 7) (factors (* 2 7)))
+(prove:is '(3 3 3) (factors 27))
+(prove:is '(2 2 2 2 2 2) (factors 64))
+(prove:is '(389) (factors 389))
+(prove:is '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072))
 (prove:is '(193 389 3084989 361040209) (factors 83621143489848422977))
 
 (prove:finalize)
