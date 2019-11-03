@@ -22,9 +22,9 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package #:fibonacci)
+(in-package :fibonacci)
 
-(define-condition mathematically-undefined (error)
+(define-condition mathematically-undefined (arithmetic-error)
   ((num :initarg :num :reader num))
   (:report (lambda (c s) (format s "Undefined for ~a" (num c))))
   (:documentation "Some numbers just don't work."))
