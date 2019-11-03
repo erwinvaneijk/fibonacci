@@ -38,6 +38,7 @@
                 :serial t
                 :components ((:file "package")
                              (:file "error")
+                             (:file "helpers")
                              (:file "fact")
                              (:file "factors")
                              (:file "fibonacci")))))

@@ -23,4 +23,4 @@ install:
 
 script:
   - cl -l prove -e '(or (prove:run :fibonacci-tests)
-             (uiop:quit 1))'
+             (uiop:quit -1))'
