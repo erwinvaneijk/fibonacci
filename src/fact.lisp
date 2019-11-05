@@ -26,7 +26,7 @@
 
 (defun fact (n)
   "Trivial factorial of N."
-  (cond ((< n 0) (error 'mathematically-undefined :message "Only defined for positive numbers."))
+  (cond ((< n 0) (error 'mathematically-undefined :num n))
         ((= n 0) 1)
         ((= n 1) 1)
         (t (* n (fact (1- n))))))

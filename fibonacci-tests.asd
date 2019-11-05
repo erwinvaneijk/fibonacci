@@ -39,7 +39,6 @@
                              (:test-file "main_test")
                              (:test-file "fact_test")
                              (:test-file "factors_test"))))
-  :perform (test-op :after (o s))
   :perform (test-op :after (o s)
                     (funcall (intern #.(string :run-test-system) :prove-asdf) s)
                     (asdf:clear-system s)))
