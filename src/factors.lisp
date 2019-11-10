@@ -30,9 +30,12 @@
 (defun factors (n)
   "Factorize the number N into its prime factors."
   (concat-lists
+   ; First get rid of all the even factors
     (loop while (evenp n)
        do (setf n (/ n 2))
        collect 2)
+    ;; Then collect all the odd factors. It could be primes only,
+    ;; but that would take more time.
     (loop
          while (> n 1)
          for k = 3 then (if (= 0 (mod n k))
