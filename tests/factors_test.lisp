@@ -22,23 +22,20 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package :cl-user)
-(in-package :prove)
-
 (in-package :fibonacci/tests)
-(in-package :fibonacci)
 
-(prove:plan nil)
+(deftest test-factors
+  (testing "The the factors"
+    (ok (equal 'nil (factors 1)))
+    (ok (equal '(2) (factors 2)))
+    (ok (equal '(2 2) (factors 4)))
+    (ok (equal '(2 47) (factors (* 2 47))))
+    (ok (equal '(2 7) (factors (* 2 7))))
+    (ok (equal '(3 3 3) (factors 27)))
+    (ok (equal '(2 2 2 2 2 2) (factors 64)))
+    (ok (equal '(389) (factors 389)))
+    (ok (equal '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072)))
+    (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))
+    (ok (signals (factors -1) 'mathematically-undefined) "Cannot refactor negative numbers")))
 
-(prove:is 'nil (factors 1))
-(prove:is '(2) (factors 2))
-(prove:is '(2 2) (factors 4))
-(prove:is '(2 47) (factors (* 2 47)))
-(prove:is '(2 7) (factors (* 2 7)))
-(prove:is '(3 3 3) (factors 27))
-(prove:is '(2 2 2 2 2 2) (factors 64))
-(prove:is '(389) (factors 389))
-(prove:is '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072))
-(prove:is '(193 389 3084989 361040209) (factors 83621143489848422977))
-
-(prove:finalize)
+(rove:run-suite *package*)

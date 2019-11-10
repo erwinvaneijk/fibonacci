@@ -21,6 +21,9 @@
 ;;; SOFTWARE.
 
 (defpackage :fibonacci/tests
-  (:use :cl :prove :asdf))
+  (:use :cl
+        :rove
+        :asdf
+        :fibonacci))
 
 (in-package :fibonacci/tests)
