@@ -22,5 +22,6 @@ install:
   - curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
 
 script:
-  - cl -l prove -e '(unless (prove:run :fibonacci-tests))
-                            (uiop:quit 1))'
+  #  - cl -l prove -e '(unless (prove:run :fibonacci-tests))
+  #                          (uiop:quit 1))'
+  - cl -l prove -e '(asdf:test-system :fibonacci-tests)'
