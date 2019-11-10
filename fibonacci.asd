@@ -32,7 +32,7 @@
   :maintainer "Erwin J. van Eijk"
   :license "MIT"
   :description "Speedy Fibonacci numbers"
-  :depends-on(trivial-features)
+  ;;:depends-on(trivial-features)
   :components ((:module source
                 :pathname "src/"
                 :serial t
@@ -44,14 +44,15 @@
                              (:file "factors"
                                     :depends-on ("error"))
                              (:file "fibonacci"
-                                    :depends-on ("error"))))))
+                                    :depends-on ("error")))))
+  :in-order-to ((asdf:test-op (asdf:test-op :fibonacci-tests))))
 
-(defmethod perform (o test-op) (c (eql (find-system :fibonacci)))
-  (operate 'load-op :fibonacci-tests)
-  (operate 'test-op :fibonacci-tests))
+;(defmethod perform (o test-op) (c (eql (find-system :fibonacci)))
+;  (operate 'load-op :fibonacci-tests)
+;  (operate 'test-op :fibonacci-tests))
 
-(defmethod operation-done-p ((o test-op) (c (eql (find-system :fibonacci))))
-  nil)
+;(defmethod operation-done-p ((o test-op) (c (eql (find-system :fibonacci))))
+;  nil)
 
 ;;  :in-order-to ((asdf:test-op (asdf:test-op :fibonacci-tests))))
 

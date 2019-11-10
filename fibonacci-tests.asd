@@ -31,7 +31,7 @@
   :description "Unit tests for the fast fibonacci implementation."
   :licence "MIT"
   :defsystem-depends-on("prove-asdf")
-  :depends-on (:fibonacci :alexandria :prove)
+  :depends-on (:fibonacci :alexandria :asdf :prove)
   :components ((:module tests
                 :pathname "tests/"
                 :serial t
