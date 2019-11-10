@@ -40,20 +40,11 @@
                              (:file "error")
                              (:file "helpers")
                              (:file "fact"
-                                    :depends-on ("error"))
+                              :depends-on ("error"))
                              (:file "factors"
-                                    :depends-on ("error"))
+                              :depends-on ("error"))
                              (:file "fibonacci"
-                                    :depends-on ("error")))))
+                              :depends-on ("error")))))
   :in-order-to ((asdf:test-op (asdf:test-op :fibonacci-tests))))
-
-;(defmethod perform (o test-op) (c (eql (find-system :fibonacci)))
-;  (operate 'load-op :fibonacci-tests)
-;  (operate 'test-op :fibonacci-tests))
-
-;(defmethod operation-done-p ((o test-op) (c (eql (find-system :fibonacci))))
-;  nil)
-
-;;  :in-order-to ((asdf:test-op (asdf:test-op :fibonacci-tests))))
 
 ;;; vim: ft=lisp et
