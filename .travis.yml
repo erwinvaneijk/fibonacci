@@ -20,9 +20,8 @@ env:
 
 matrix:
   allow_failures:
-    - LISP=sbcl32
-    - LISP=clisp32
-    - LISP=cmucl
+    - env: LISP=allegro
+    - env: LISP=cmucl
 
 install:
   - curl -L https://github.com/erwinvaneijk/cl-travis/raw/master/install.sh | sh
