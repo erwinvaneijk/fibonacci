@@ -25,7 +25,7 @@ matrix:
     - LISP=cmucl
 
 install:
-  - curl -L https://github.com/luismbo/cl-travis/raw/master/install.sh | sh
+  - curl -L https://github.com/erwinvaneijk/cl-travis/raw/master/install.sh | sh
 
 script:
   #  - cl -l prove -e '(unless (prove:run :fibonacci-tests))
