@@ -1,6 +1,10 @@
 language: common-lisp
 sudo: required
 
+# The following addon is to get the last builds working.
+addons:
+  chrome: stable
+
 env:
   matrix:
     - LISP=abcl
