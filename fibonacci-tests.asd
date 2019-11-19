@@ -30,17 +30,15 @@
 (defsystem :fibonacci-tests
   :description "Unit tests for the fast fibonacci implementation."
   :licence "MIT"
-  :defsystem-depends-on("prove-asdf")
-  :depends-on (:fibonacci :alexandria :asdf :prove)
+  :class :package-inferred-system
+  :depends-on (:fibonacci :alexandria :asdf :rove)
   :components ((:module tests
                 :pathname "tests/"
                 :serial t
                 :components ((:file "package")
-                             (:test-file "main_test")
-                             (:test-file "fact_test")
-                             (:test-file "factors_test"))))
-  :perform (test-op :after (o s)
-                    (funcall (intern #.(string :run-test-system) :prove-asdf) s)
-                    (asdf:clear-system s)))
+                             (:file "fibonacci_test")
+                             (:file "fact_test")
+                             (:file "factors_test"))))
+  :perform (test-op :after (o s) (uiop:symbol-call :rove '#:run s)))
 
 ;;; vim: ft=lisp et

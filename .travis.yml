@@ -1,6 +1,10 @@
 language: common-lisp
 sudo: required
 
+# The following addon is to get the last builds working.
+addons:
+  chrome: stable
+
 env:
   matrix:
     - LISP=abcl
@@ -27,4 +31,4 @@ install:
 script:
   #  - cl -l prove -e '(unless (prove:run :fibonacci-tests))
   #                          (uiop:quit 1))'
-  - cl -l prove -e '(asdf:test-system :fibonacci-tests)'
+  - cl -l rove -e '(asdf:test-system :fibonacci-tests)'

@@ -22,40 +22,33 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package :cl-user)
-
 (in-package :fibonacci/tests)
 
-(plan nil)
-
-(subtest
+(deftest test-fibonacci-number-generators
   ; This test is here as a litmus test for prove.
-    "Test the + function"; the description
-  (is 0 (+ 0 0))
-  (is 4 (+ 2 2))
-  (is 5 (+ 2 3))
-  (is 0 (+ 2 -2)))
+  (testing "Test the + function"; the description
+    (ok (= 0 (+ 0 0)))
+    (ok (= 4 (+ 2 2)))
+    (ok (= 5 (+ 2 3)))
+    (ok (= 0 (+ 2 -2))))
 
-(subtest
-    "Test the simple Fibonacci function."
-  (is 0 (fibonacci:fib 0))
-  (is 1 (fibonacci:fib 1))
-  (is 1 (fibonacci:fib 2))
-  (is 2 (fibonacci:fib 3))
-  (is 5 (fibonacci:fib 5))
-  (is 89 (fibonacci:fib 11))
-  (is-error (fibonacci:fib -1) 'fibonacci:mathematically-undefined))
+  (testing "Test the Trivial Fibonacci function."
+    (ok (= 0 (fibonacci:slowfib 0)))
+    (ok (= 1 (fibonacci:slowfib 1)))
+    (ok (= 1 (fibonacci:slowfib 2)))
+    (ok (= 2 (fibonacci:slowfib 3)))
+    (ok (= 5 (fibonacci:slowfib 5)))
+    (ok (= 89 (fibonacci:slowfib 11)))
+    (ok (signals (fibonacci:slowfib -1) 'fibonacci:mathematically-undefined)))
 
-(subtest
-    "Test the fast Fibonacci function."
-  (is-error (fibonacci:fastfib -1) 'fibonacci:mathematically-undefined)
-  (is 0 (fibonacci:fastfib 0))
-  (is 1 (fibonacci:fastfib 1))
-  (is 1 (fibonacci:fastfib 2))
-  (is 2 (fibonacci:fastfib 3))
-  (is 5 (fibonacci:fastfib 5))
-  (is 89 (fibonacci:fastfib 11))
-  (is 2971215073 (fibonacci:fastfib 47))
-  (is 1779979416004714189 (fibonacci:fastfib 89)))
+  (testing "Test the Fast Fibonacci function."
+    (ok (= 0 (fibonacci:fib 0)))
+    (ok (= 1 (fibonacci:fib 1)))
+    (ok (= 1 (fibonacci:fib 2)))
+    (ok (= 2 (fibonacci:fib 3)))
+    (ok (= 5 (fibonacci:fib 5)))
+    (ok (= 89 (fibonacci:fib 11)))
+    (ok (= 2971215073 (fibonacci:fib 47)))
+    (ok (= 1779979416004714189 (fibonacci:fib 89)))
+    (ok (signals (fibonacci:fib -1) 'fibonacci:mathematically-undefined))))
 
-(finalize)

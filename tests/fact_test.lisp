@@ -22,18 +22,14 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package :cl-user)
-
 (in-package :fibonacci/tests)
-(in-package :fibonacci)
 
-(prove:plan 5)
+(deftest test-simple-factorial
+  (testing "Test Factorial"
+    (ok (= 1 (fibonacci:fact 0)))
+    (ok (= 1 (fibonacci:fact 1)))
+    (ok (= 2 (fibonacci:fact 2)))
+    (ok (= 40320 (fibonacci:fact 8)))
+    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
 
-(prove:is 1 (fact 0))
-(prove:is 1 (fact 1))
-(prove:is 2 (fact 2))
-(prove:is 40320 (fact 8))
-(prove:is-error (fact -1) 'mathematically-undefined)
-
-(prove:finalize)
-
+(rove:run-suite *package*)

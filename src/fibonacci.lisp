@@ -26,7 +26,7 @@
 
 (in-package :fibonacci)
 
-(defun fib (n)
+(defun slowfib (n)
   "Trivial recursive Fibonacci number implementation of N."
   (cond
     ((< n 0) (error 'mathematically-undefined :num n))
@@ -50,5 +50,6 @@
                (cons c d)
                (cons d (+ c d)))))))
 
-(defun fastfib (n)
+(defun fib (n)
+  "Compute the Nth Fibonacci number."
     (car (fastfib-part n)))
