@@ -33,22 +33,22 @@
     (ok (= 0 (+ 2 -2))))
 
   (testing "Test the Trivial Fibonacci function."
+    (ok (= 0 (fibonacci:slowfib 0)))
+    (ok (= 1 (fibonacci:slowfib 1)))
+    (ok (= 1 (fibonacci:slowfib 2)))
+    (ok (= 2 (fibonacci:slowfib 3)))
+    (ok (= 5 (fibonacci:slowfib 5)))
+    (ok (= 89 (fibonacci:slowfib 11)))
+    (ok (signals (fibonacci:slowfib -1) 'fibonacci:mathematically-undefined)))
+
+  (testing "Test the Fast Fibonacci function."
     (ok (= 0 (fibonacci:fib 0)))
     (ok (= 1 (fibonacci:fib 1)))
     (ok (= 1 (fibonacci:fib 2)))
     (ok (= 2 (fibonacci:fib 3)))
     (ok (= 5 (fibonacci:fib 5)))
     (ok (= 89 (fibonacci:fib 11)))
-    (ok (signals (fibonacci:fib -1) 'fibonacci:mathematically-undefined)))
-
-  (testing "Test the fast Fibonacci function."
-    (ok (= 0 (fibonacci:fastfib 0)))
-    (ok (= 1 (fibonacci:fastfib 1)))
-    (ok (= 1 (fibonacci:fastfib 2)))
-    (ok (= 2 (fibonacci:fastfib 3)))
-    (ok (= 5 (fibonacci:fastfib 5)))
-    (ok (= 89 (fibonacci:fastfib 11)))
-    (ok (= 2971215073 (fibonacci:fastfib 47)))
-    (ok (= 1779979416004714189 (fibonacci:fastfib 89)))
-    (ok (signals (fibonacci:fastfib -1) 'fibonacci:mathematically-undefined))))
+    (ok (= 2971215073 (fibonacci:fib 47)))
+    (ok (= 1779979416004714189 (fibonacci:fib 89)))
+    (ok (signals (fibonacci:fib -1) 'fibonacci:mathematically-undefined))))
 

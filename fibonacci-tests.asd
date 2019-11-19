@@ -36,7 +36,7 @@
                 :pathname "tests/"
                 :serial t
                 :components ((:file "package")
-                             (:file "main_test")
+                             (:file "fibonacci_test")
                              (:file "fact_test")
                              (:file "factors_test"))))
   :perform (test-op :after (o s) (uiop:symbol-call :rove '#:run s)))
