@@ -20,7 +20,9 @@ env:
 
 matrix:
   allow_failures:
+    # Allegro is failing with some device error
     - env: LISP=allegro
+    # CMUCL is failing with "Can't open /home/travis/.com/..."
     - env: LISP=cmucl
 
 install:
