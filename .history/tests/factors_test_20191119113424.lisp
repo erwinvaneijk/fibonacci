@@ -24,10 +24,18 @@
 
 (in-package :fibonacci/tests)
 
-(deftest test-simple-factorial
-  (testing "Test Factorial"
-    (ok (= 1 (fibonacci:fact 0)))
-    (ok (= 1 (fibonacci:fact 1)))
-    (ok (= 2 (fibonacci:fact 2)))
-    (ok (= 40320 (fibonacci:fact 8)))
-    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+(deftest test-factors
+  (testing "The the factors"
+    (ok (equal 'nil (factors 1)))
+    (ok (equal '(2) (factors 2)))
+    (ok (equal '(2 2) (factors 4)))
+    (ok (equal '(2 47) (factors (* 2 47))))
+    (ok (equal '(2 7) (factors (* 2 7))))
+    (ok (equal '(3 3 3) (factors 27)))
+    (ok (equal '(2 2 2 2 2 2) (factors 64)))
+    (ok (equal '(389) (factors 389)))
+    (ok (equal '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072)))
+    (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))
+    (ok (signals (factors -1) 'mathematically-undefined) "Cannot refactor negative numbers")))
+
+(rove:run-suite *package*)

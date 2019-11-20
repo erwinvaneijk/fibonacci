@@ -31,3 +31,5 @@
     (ok (= 2 (fibonacci:fact 2)))
     (ok (= 40320 (fibonacci:fact 8)))
     (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+
+(rove:run-suite *package*)

@@ -1,6 +1,4 @@
-;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
-;;;
-;;; tests/main_test.lisp -- tests for the Fibonacci implementation.
+;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10; indent-tabs-mode: nil -*-
 ;;;
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
@@ -22,12 +20,31 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package :fibonacci/tests)
+(in-package :cl-user)
+(defpackage fibonacci-asd
+  (:use :cl :asdf))
+(in-package fibonacci-asd)
 
-(deftest test-simple-factorial
-  (testing "Test Factorial"
-    (ok (= 1 (fibonacci:fact 0)))
-    (ok (= 1 (fibonacci:fact 1)))
-    (ok (= 2 (fibonacci:fact 2)))
-    (ok (= 40320 (fibonacci:fact 8)))
-    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+(defsystem "fibonacci"
+  :name "Fibonacci series"
+  :version "0.0.0"
+  :author "Erwin J. van Eijk"
+  :maintainer "Erwin J. van Eijk"
+  :license "MIT"
+  :description "Speedy Fibonacci numbers"
+  ;;:depends-on(trivial-features)
+  :components ((:module source
+                :pathname "src/"
+                :serial t
+                :components ((:file "package")
+                             (:file "error")
+                             (:file "helpers")
+                             (:file "fact"
+                              :depends-on ("error"))
+                             (:file "factors"
+                              :depends-on ("error"))
+                             (:file "fibonacci"
+                              :depends-on ("error")))))
+  :in-order-to ((test-op (test-op #:fibonacci/tests))))
+
+;;; vim: ft=lisp et

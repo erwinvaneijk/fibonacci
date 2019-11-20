@@ -45,7 +45,7 @@
                               :depends-on ("error"))
                              (:file "fibonacci"
                               :depends-on ("error")))))
-  :in-order-to ((test-op (test-op :fibonacci/tests))))
+  :in-order-to ((test-op (test-op :fibonacci-tests))))
 
 (defsystem "fibonacci/tests"
   :description "Unit tests for the fast fibonacci implementation."

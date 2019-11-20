@@ -23,11 +23,3 @@
 ;;; SOFTWARE.
 
 (in-package :fibonacci/tests)
-
-(deftest test-simple-factorial
-  (testing "Test Factorial"
-    (ok (= 1 (fibonacci:fact 0)))
-    (ok (= 1 (fibonacci:fact 1)))
-    (ok (= 2 (fibonacci:fact 2)))
-    (ok (= 40320 (fibonacci:fact 8)))
-    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
