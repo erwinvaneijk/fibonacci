@@ -24,10 +24,28 @@
 
 (in-package :fibonacci/tests)
 
-(deftest test-simple-factorial
+(deftest test-factorial
   (testing "Test Factorial"
     (ok (= 1 (fibonacci:fact 0)))
     (ok (= 1 (fibonacci:fact 1)))
     (ok (= 2 (fibonacci:fact 2)))
     (ok (= 40320 (fibonacci:fact 8)))
+    (ok (= 8683317618811886495518194401280000000 (fibonacci:fact 33)))
+    (ok (= 77338 (length (write-to-string (fibonacci:fact 20000)))))
+    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+
+(deftest test-trivial-factorial
+  (testing "Test Trivial Factorial"
+    (ok (= 1 (fibonacci:slowfact 0)))
+    (ok (= 1 (fibonacci:slowfact 1)))
+    (ok (= 2 (fibonacci:slowfact 2)))
+    (ok (= 40320 (fibonacci:slowfact 8)))
+    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+
+(deftest test-better-factorial
+  (testing "Test Better Trivial Factorial"
+    (ok (= 1 (fibonacci:slowfact-better 0)))
+    (ok (= 1 (fibonacci:slowfact-better 1)))
+    (ok (= 2 (fibonacci:slowfact-better 2)))
+    (ok (= 40320 (fibonacci:slowfact 8)))
     (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
