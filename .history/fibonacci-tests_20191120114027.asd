@@ -1,6 +1,6 @@
-;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
+;;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; tests/main_test.lisp -- tests for the Fibonacci implementation.
+;;; fibonacci-tests.asd --- ASDF system definition for fibonacci unit tests.
 ;;;
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
@@ -22,12 +22,24 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(in-package :fibonacci/tests)
+(in-package :cl-user)
+(defpackage fibonacci-tests-asd
+  (:use :cl :asdf))
+(in-package fibonacci-tests-asd)
 
-(deftest test-simple-factorial
-  (testing "Test Factorial"
-    (ok (= 1 (fibonacci:fact 0)))
-    (ok (= 1 (fibonacci:fact 1)))
-    (ok (= 2 (fibonacci:fact 2)))
-    (ok (= 40320 (fibonacci:fact 8)))
-    (ok (signals (fibonacci:fact -1) 'fibonacci:mathematically-undefined))))
+(defsystem :fibonacci-tests
+  :description "Unit tests for the fast fibonacci implementation."
+  :licence "MIT"
+  :class :package-inferred-system
+  :depends-on (:fibonacci :alexandria :asdf :rove)
+  :components ((:module tests
+                :pathname "tests/"
+                :serial t
+                :components ((:file "package")
+                             (:file "main_test")
+                             (:file "fibonacci_test")
+                             (:file "fact_test")
+                             (:file "factors_test"))))
+  :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
+
+;;; vim: ft=lisp et

@@ -45,7 +45,7 @@
                               :depends-on ("error"))
                              (:file "fibonacci"
                               :depends-on ("error")))))
-  :in-order-to ((test-op (test-op :fibonacci/tests))))
+  :in-order-to ((test-op (test-op :fibonacci-tests))))
 
 (defsystem "fibonacci/tests"
   :description "Unit tests for the fast fibonacci implementation."
@@ -56,9 +56,9 @@
                 :pathname "tests/"
                 :serial t
                 :components ((:file "package")
-                             (:file "test-suite")
-                             (:file "fibonacci_test" :depends-on ("test-suite"))
-                             (:file "fact_test" :depends-on ("test-suite"))
-                             (:file "factors_test" :depends-on ("test-suite")))))
+                             (:file "main_test")
+                             (:file "fibonacci_test")
+                             (:file "fact_test")
+                             (:file "factors_test"))))
   :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
 ;;; vim: ft=lisp et
