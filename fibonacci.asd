@@ -56,9 +56,9 @@
                 :pathname "tests/"
                 :serial t
                 :components ((:file "package")
-                             (:file "main_test")
-                             (:file "fibonacci_test")
-                             (:file "fact_test")
-                             (:file "factors_test"))))
+                             (:file "test-suite")
+                             (:file "fibonacci_test" :depends-on ("test-suite"))
+                             (:file "fact_test" :depends-on ("test-suite"))
+                             (:file "factors_test" :depends-on ("test-suite")))))
   :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
 ;;; vim: ft=lisp et
