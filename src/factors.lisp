@@ -27,22 +27,41 @@
 
 (in-package :fibonacci)
 
+(defun is-divisor-p (n k)
+  (= 0 (mod n k)))
+
+(defconstant NUM-PRECOMPUTED-PRIMES 10000000
+  "The number of primes we compute in the sieve.")
+
 (defun factors (n)
   "Factorize the number N into its prime factors."
-  (if (< n 0)
-      (error 'mathematically-undefined :num n)
-      (concat-lists
-                                        ; First get rid of all the even factors
-       (loop
-         while (evenp n)
-         do (setf n (/ n 2))
-         collect 2)
-       ;; Then collect all the odd factors. It could be primes only,
-       ;; but that would take more time.
-       (loop
-         while (> n 1)
-         for k = 3 then (if (= 0 (mod n k))
-                            k
-                            (+ 2 k))
-         when (= 0 (mod n k)) collect k
-         when (= 0 (mod n k)) do (setf n (/ n k))))))
+  (cond ((< n 0) (alexandria:flatten (list -1 (factors (- n)))))
+        ((= n 0) (cons 0 nil))
+        ((= n 1) (cons 1 nil))
+        (t
+         (alexandria:flatten
+          (list
+           ;; First get rid of all the even factors
+           (loop
+             :while (evenp n)
+             :do (setf n (/ n 2))
+             :collect 2)
+           ;; Then collect all the odd factors.
+           ;; First use a number of primes which are pre-collected.
+           (loop
+             :while (> n 1)
+             :for k in (cached-sieve-odds (min NUM-PRECOMPUTED-PRIMES n))
+             :collect (loop
+                        :while (is-divisor-p n k)
+                        :collect k
+                        :do (setf n (/ n k))))
+           ;; Now go look for the last ones by just trying. This might
+           ;; take some time
+           (loop
+             :while (> n 1)
+             :for k = (min (1+ NUM-PRECOMPUTED-PRIMES) n) then (+ 2 k)
+             ;:for k = 3 then (if (is-divisor-p n k) k (+ 2 k))
+             :for is-divisor = (is-divisor-p n k)
+             ; :do (format t "O: ~a ~a ~%" n k)
+             :when is-divisor :collect k
+             :when is-divisor :do (setf n (/ n k))))))))

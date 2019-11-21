@@ -32,6 +32,7 @@
   :maintainer "Erwin J. van Eijk"
   :license "MIT"
   :description "Speedy Fibonacci numbers"
+  :depends-on(:function-cache)
   ;;:depends-on(trivial-features)
   :components ((:module source
                 :pathname "src/"
@@ -41,8 +42,9 @@
                              (:file "helpers")
                              (:file "fact"
                               :depends-on ("error"))
+                             (:file "sieve")
                              (:file "factors"
-                              :depends-on ("error"))
+                              :depends-on ("error" "sieve"))
                              (:file "fibonacci"
                               :depends-on ("error")))))
   :in-order-to ((test-op (test-op :fibonacci/tests))))

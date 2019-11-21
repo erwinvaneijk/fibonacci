@@ -26,14 +26,20 @@
 
 (deftest test-factors
   (testing "The the factors"
-    (ok (equal 'nil (factors 1)))
+    (ok (equal '(0) (factors 0)))
+    (ok (equal '(1) (factors 1)))
     (ok (equal '(2) (factors 2)))
+    (ok (equal '(-1 2) (factors -2)))
     (ok (equal '(2 2) (factors 4)))
     (ok (equal '(2 47) (factors (* 2 47))))
     (ok (equal '(2 7) (factors (* 2 7))))
     (ok (equal '(3 3 3) (factors 27)))
     (ok (equal '(2 2 2 2 2 2) (factors 64)))
     (ok (equal '(389) (factors 389)))
+    (ok (equal '(2 3 5 7 11 13 17 19 23 29 31) (factors (* 2 3 5 7 11 13 17 19 23 29 31))))
     (ok (equal '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072)))
+    (ok (equal (sieve-odds 1000) (factors (reduce #'* (sieve-odds 1000)))))
     (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))
-    (ok (signals (factors -1) 'mathematically-undefined) "Cannot refactor negative numbers")))
+    (pass "Clearing the cache.")
+    (function-cache:clear-cache-all-function-caches)
+    (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))))
