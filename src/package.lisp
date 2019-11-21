@@ -29,6 +29,8 @@
            :fact
            :factors
            :sieve-odds
+           :slowfact
+           :slowfact-better
            :mathematically-undefined
            :range))
 

@@ -24,9 +24,63 @@
 
 (in-package #:fibonacci)
 
-(defun fact (n)
-  "Trivial factorial of N."
+(defun slowfact (n)
+  "Trivial factorial of N.
+
+This is a trivial non-tail recursive version of the factorial."
   (cond ((< n 0) (error 'mathematically-undefined :num n))
         ((= n 0) 1)
         ((= n 1) 1)
         (t (* n (fact (1- n))))))
+
+(defun slowfact-better-part (n x)
+  "Compute the factorial of N with temporary X.
+
+This version computes the factorial in a tail-recursive fashion."
+  (cond ((< n 0) (error 'mathematically-undefined :num n))
+        ((< n 1) x)
+        (t (slowfact-better-part (1- n) (* n x)))))
+
+(defun slowfact-better (n)
+  (slowfact-better-part n 1))
+
+(defun split-recursive-factorial (n)
+  "Compute a factorial with the split recursive algorithm.
+
+Based on Peter Luschny's code
+(http://www.luschny.de/math/factorial/LispFactorial.html),
+
+which was rewritten in Lisp by Richard Fateman
+(https://people.eecs.berkeley.edu/~fateman/papers/factorial.pdf)"
+  (let ((p 1)
+        (r 1)
+        (NN 1)
+        (log2n (floor (log n 2)))
+        (h 0)
+        (shift 0)
+        (high 0)
+        (len 0))
+    (labels
+        ((prod (n)
+           (declare (fixnum n))
+           (let ((m (ash n -1)))
+             (cond ((= m 0) (incf NN 2))
+                   ((= n 2) (* (incf NN 2) (incf NN 2)))
+                   (t (* (prod (- n m)) (prod m)))))))
+      (loop while (/= h n) do
+           (incf shift h)
+           (setf h (ash n (- log2n)))
+           (decf log2n)
+           (setf len high)
+           (setf high (if (oddp h) h (1- h)))
+           (setf len (ash (- high len) -1))
+           (cond ((> len 0)
+                  (setf p (* p (prod len)))
+                  (setf r (* r p)))))
+      (ash r shift))))
+
+(defun fact (n)
+  (cond ((< n 0) (error 'mathematically-undefined :num n))
+        ((= n 0) 1)
+        ((= n 1) 1)
+        (t (split-recursive-factorial n))))
