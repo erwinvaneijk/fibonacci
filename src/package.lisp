@@ -24,6 +24,13 @@
 
 (defpackage :fibonacci
   (:use #:cl)
-  (:export :fib :slowfib :fact :mathematically-undefined :factors :range))
+  (:export :fib
+           :slowfib
+           :fact
+           :slowfact
+           :slowfact-better
+           :factors
+           :mathematically-undefined
+           :range))
 
 (in-package :fibonacci)
