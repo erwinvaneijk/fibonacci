@@ -61,6 +61,7 @@
                              (:file "test-suite")
                              (:file "fibonacci_test" :depends-on ("test-suite"))
                              (:file "fact_test" :depends-on ("test-suite"))
+                             (:file "sieve-test" :depends-on ("test-suite"))
                              (:file "factors_test" :depends-on ("test-suite")))))
   :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
 ;;; vim: ft=lisp et

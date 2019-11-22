@@ -30,7 +30,7 @@
 (defun is-divisor-p (n k)
   (= 0 (mod n k)))
 
-(defconstant NUM-PRECOMPUTED-PRIMES 10000000
+(defconstant NUM-PRECOMPUTED-PRIMES 1000000
   "The number of primes we compute in the sieve.")
 
 (defun factors (n)
