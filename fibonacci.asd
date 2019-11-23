@@ -63,5 +63,5 @@
                              (:file "fact_test" :depends-on ("test-suite"))
                              (:file "sieve-test" :depends-on ("test-suite"))
                              (:file "factors_test" :depends-on ("test-suite")))))
-  :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
+  :perform (test-op (o s) (uiop:symbol-call :rove '#:run s :style :spec)))
 ;;; vim: ft=lisp et
