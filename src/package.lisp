@@ -28,6 +28,8 @@
            :slowfib
            :fact
            :factors
+           :divisors
+           :trivial-factors
            :sieve-odds
            :slowfact
            :slowfact-better

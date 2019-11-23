@@ -33,14 +33,26 @@
 (defconstant NUM-PRECOMPUTED-PRIMES 1000000
   "The number of primes we compute in the sieve.")
 
+(defun trivial-factors(n)
+  "Factorize the number N."
+  (alexandria:flatten
+    (list
+        (loop for i from 1 to (/ (abs n) 2)
+            when (= (mod (abs n) i) 0) collect i)
+        (abs n))))
+
 (defun factors (n)
+  (remove-duplicates (divisors n)))
+
+(defun divisors (n)
   "Factorize the number N into its prime factors."
-  (cond ((< n 0) (alexandria:flatten (list -1 (factors (- n)))))
+  (cond ((< n 0) (factors (abs n)))
         ((= n 0) (cons 0 nil))
         ((= n 1) (cons 1 nil))
         (t
          (alexandria:flatten
           (list
+           '(1)
            ;; First get rid of all the even factors
            (loop
              :while (evenp n)

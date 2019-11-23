@@ -24,22 +24,57 @@
 
 (in-package :fibonacci/tests)
 
-(deftest test-factors
-  (testing "The the factors"
-    (ok (equal '(0) (factors 0)))
-    (ok (equal '(1) (factors 1)))
-    (ok (equal '(2) (factors 2)))
-    (ok (equal '(-1 2) (factors -2)))
-    (ok (equal '(2 2) (factors 4)))
-    (ok (equal '(2 47) (factors (* 2 47))))
-    (ok (equal '(2 7) (factors (* 2 7))))
-    (ok (equal '(3 3 3) (factors 27)))
-    (ok (equal '(2 2 2 2 2 2) (factors 64)))
-    (ok (equal '(389) (factors 389)))
-    (ok (equal '(2 3 5 7 11 13 17 19 23 29 31) (factors (* 2 3 5 7 11 13 17 19 23 29 31))))
-    (ok (equal '(2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072)))
-    (ok (equal (sieve-odds 1000) (factors (reduce #'* (sieve-odds 1000)))))
-    (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))
+(deftest test-divisors
+  (testing "The divisors function."
+    (ok (equal '(0) (divisors 0)))
+    (ok (equal '(1) (divisors 1)))
+    (ok (equal '(1 2) (divisors 2)))
+    (ok (equal '(1 2) (divisors -2)))
+    (ok (equal '(1 2 2) (divisors 4)))
+    (ok (equal '(1 2 47) (divisors (* 2 47))))
+    (ok (equal '(1 2 7) (divisors (* 2 7))))
+    (ok (equal '(1 3 3 3) (divisors 27)))
+    (ok (equal '(1 2 2 2 2 2 2) (divisors 64)))
+    (ok (equal '(1 389) (divisors 389)))
+    (ok (equal '(1 2 3 5 7 11 13 17 19 23 29 31) (divisors (* 2 3 5 7 11 13 17 19 23 29 31))))
+    (ok (equal '(1 2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (divisors 51680708854858323072)))
+    (ok (equal (append '(1) (sieve-odds 1000)) (divisors (reduce #'* (sieve-odds 1000)))))
+    (ok (equal '(1 193 389 3084989 361040209) (divisors 83621143489848422977)))
     (pass "Clearing the cache.")
     (function-cache:clear-cache-all-function-caches)
-    (ok (equal '(193 389 3084989 361040209) (factors 83621143489848422977)))))
+    (ok (equal '(1 193 389 3084989 361040209) (divisors 83621143489848422977)))))
+
+(deftest test-factors
+  (testing "The factors function."
+    (ok (equal '(0) (factors 0)))
+    (ok (equal '(1) (factors 1)))
+    (ok (equal '(1 2) (factors 2)))
+    (ok (equal '(1 2) (factors 4)))
+    (ok (equal '(1 2 47) (factors (* 2 47))))
+    (ok (equal '(1 2 7) (factors (* 2 7))))
+    (ok (equal '(1 3) (factors 27)))
+    (ok (equal '(1 2) (factors 64)))
+    (ok (equal '(1 389) (factors 389)))
+    (ok (equal '(1 2 3 5 7 11 13 17 19 23 29 31) (factors (* 2 3 5 7 11 13 17 19 23 29 31))))
+    (ok (equal '(1 2 3 7 23 47 769 1103 2207 3167) (factors 51680708854858323072)))
+    (ok (equal '(1 193 389 3084989 361040209) (factors 83621143489848422977))))
+
+  (testing "The trivial factors function."
+    (ok (equal '(0) (trivial-factors 0)))
+    (ok (equal '(1) (trivial-factors 1)))
+    (ok (equal '(1 2) (trivial-factors 2)))
+    (ok (equal '(1 2 4) (trivial-factors 4)))
+    (ok (equal '(1 2 47 94) (trivial-factors (* 2 47))))
+    (ok (equal '(1 2 7 14) (trivial-factors (* 2 7))))
+    (ok (equal '(1 3 9 27) (trivial-factors 27)))
+    (ok (equal '(1 2 4 8 16 32 64) (trivial-factors 64)))
+    (ok (equal '(1 389) (trivial-factors 389)))
+    (ok (equal '(1 2 3 5 6 7 10 11 13 14 15 17 21 22 26 30 33 34 35 39 42 51 55 65 66
+                 70 77 78 85 91 102 105 110 119 130 143 154 165 170 182 187 195 210
+                 221 231 238 255 273 286 330 357 374 385 390 429 442 455 462 510 546
+                 561 595 663 714 715 770 858 910 935 1001 1105 1122 1155 1190 1309
+                 1326 1365 1430 1547 1785 1870 2002 2145 2210 2310 2431 2618 2730
+                 2805 3003 3094 3315 3570 3927 4290 4641 4862 5005 5610 6006 6545
+                 6630 7293 7735 7854 9282 10010 12155 13090 14586 15015 15470 17017
+                 19635 23205 24310 30030 34034 36465 39270 46410 51051 72930 85085
+                 102102 170170 255255 510510) (trivial-factors (* 2 3 5 7 11 13 17))))))
