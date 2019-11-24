@@ -40,9 +40,9 @@
     (ok (equal '(1 2 2 2 2 2 2 2 3 3 7 23 47 769 1103 2207 3167) (divisors 51680708854858323072)))
     (ok (equal (append '(1) (sieve-odds 1000)) (divisors (reduce #'* (sieve-odds 1000)))))
     (ok (equal '(1 193 389 3084989 361040209) (divisors 83621143489848422977)))
-    (pass "Clearing the cache.")
-    (function-cache:clear-cache-all-function-caches)
-    (ok (equal '(1 193 389 3084989 361040209) (divisors 83621143489848422977)))))
+    (if (string/= (lisp-implementation-type) "armedbear")
+        (function-cache:clear-cache-all-function-caches)
+        (ok (equal '(1 193 389 3084989 361040209) (divisors 83621143489848422977))))))
 
 (deftest test-factors
   (testing "The factors function."
