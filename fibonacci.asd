@@ -32,6 +32,7 @@
   :maintainer "Erwin J. van Eijk"
   :license "MIT"
   :description "Speedy Fibonacci numbers"
+  :depends-on(:function-cache)
   ;;:depends-on(trivial-features)
   :components ((:module source
                 :pathname "src/"
@@ -41,8 +42,9 @@
                              (:file "helpers")
                              (:file "fact"
                               :depends-on ("error"))
+                             (:file "sieve")
                              (:file "factors"
-                              :depends-on ("error"))
+                              :depends-on ("error" "sieve"))
                              (:file "fibonacci"
                               :depends-on ("error")))))
   :in-order-to ((test-op (test-op :fibonacci/tests))))
@@ -59,6 +61,7 @@
                              (:file "test-suite")
                              (:file "fibonacci_test" :depends-on ("test-suite"))
                              (:file "fact_test" :depends-on ("test-suite"))
+                             (:file "sieve-test" :depends-on ("test-suite"))
                              (:file "factors_test" :depends-on ("test-suite")))))
-  :perform (test-op (o s) (uiop:symbol-call :rove '#:run s)))
+  :perform (test-op (o s) (uiop:symbol-call :rove '#:run s :style :spec)))
 ;;; vim: ft=lisp et

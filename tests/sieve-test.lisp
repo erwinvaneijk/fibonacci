@@ -1,6 +1,6 @@
-;;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
+;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; package.lisp --- Contains the package information.
+;;; tests/sieve-test.lisp -- tests for the Sieve.
 ;;;
 ;;; Copyright (C) 2019, Erwin van Eijk <erwinvaneijk@gmail.com>
 ;;;
@@ -22,18 +22,18 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;;; SOFTWARE.
 
-(defpackage :fibonacci
-  (:use #:cl)
-  (:export :fib
-           :slowfib
-           :fact
-           :factors
-           :divisors
-           :trivial-factors
-           :sieve-odds
-           :slowfact
-           :slowfact-better
-           :mathematically-undefined
-           :range))
+(in-package :fibonacci/tests)
 
-(in-package :fibonacci)
+(defun is-prime-p (n)
+  "Returns true if N is prime."
+  (if (<= n 1)
+      nil
+      (notany (lambda (i) (= (mod n i) 0))
+              (loop :for i :from 2 :to (sqrt n) :collect i))))
+
+(deftest test-fibonacci-number-generators
+  ; This test is here as a litmus test for prove.
+  (testing "Test sieve"
+    (ok (equal '(2) (sieve-odds 2)))
+    (ok (equal '(2 3 5) (sieve-odds 5)))
+    (ok (every 'is-prime-p (sieve-odds 100)))))
