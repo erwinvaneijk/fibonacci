@@ -45,6 +45,7 @@
                              (:file "sieve")
                              (:file "factors"
                               :depends-on ("error" "sieve"))
+                             (:file "lucas" :depends-on ("error"))
                              (:file "fibonacci"
                               :depends-on ("error")))))
   :in-order-to ((test-op (test-op :fibonacci/tests))))
@@ -60,6 +61,7 @@
                 :components ((:file "package")
                              (:file "test-suite")
                              (:file "fibonacci_test" :depends-on ("test-suite"))
+                             (:file "lucas_test" :depends-on ("test-suite"))
                              (:file "fact_test" :depends-on ("test-suite"))
                              (:file "sieve-test" :depends-on ("test-suite"))
                              (:file "factors_test" :depends-on ("test-suite")))))
